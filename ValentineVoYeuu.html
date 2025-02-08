@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style2.css">
+    <title>Valentine's Day 1 💞</title>
+</head>
+<body>
+    <div id="hedlinecontainer">
+        <div id="shine">💞Happy Valentine's Day</div>
+      </div>
+    
+      <div class="gallery">
+        <img src="./Img/1.jpg" alt="Vợ iuu">
+        <img src="./Img/2.jpg" alt="Vợ iuu">
+        <img src="./Img/8.jpg" alt="Vợ iuu">
+        <img src="./Img/4.jpg" alt="Vợ iuu">
+        <img src="./Img/6.jpg" alt="Vợ iuu">
+      </div>
+
+    <div id="button">
+        <button onclick="showModal('video')">🎬</button>
+        <button onclick="showModal('letter')">✉️</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+    <script>
+        let currentVideo = null;  // Biến để theo dõi video đang phát
+    
+        function showModal(type) {
+            let content = "";
+            if (type === "video") {
+                content = `
+                    <h2>Xem Video</h2>
+                    <div class="video-container">
+                        <video controls>
+                            <source src="./Img/video.mp4" type="video/mp4">
+                            Trình duyệt của bạn không hỗ trợ video.
+                        </video>
+                    </div>
+                    <div class="video-container">
+                        <video controls>
+                            <source src="./Img/Video1.mp4" type="video/mp4">
+                            Trình duyệt của bạn không hỗ trợ video.
+                        </video>
+                    </div>
+                `;
+            } else if (type === "letter") {
+                content = `
+                    <h2>📜 Gửi vợ iuuu</h2>
+                    <p>Chào vợ iuu của chồng, hôm nay là ngày Valentine đầu tiên của vợ chồng mình và cũng là ngày đầu tiên từ trước đến nay. Chồng muốn cảm ơn sự xuất hiện của vợ, người cho chồng những hạnh phúc mà chồng hằng mong ước.
+                    Cảm ơn vợ vì đã chấp nhận chồng dù cho chồng không có gì từ những thứ đơn giản nhất, nhưng không vì vậy mà chồng lại thờ ơ việc đó được, chồng sẽ cố gắng bù đắp lại cho vợ bằng tình cảm trân thành nhất.
+                    </p>
+                    <p>Nhân ngày Valentine chồng mong cho hai vợ chồng mình có thể cùng nhau đi tiếp đến những ngày tháng sau này.Cảm ơn vợ đã đến bên chồng. Chồng iuu vợ nhiều lắm💖</p>
+                    <p>Chồng iuu của vợ,</p>
+                    <p><em>Nguyễn Minh Vương</em></p>
+                `;
+            }
+            document.getElementById("modalBody").innerHTML = content;
+            document.getElementById("myModal").style.display = "block";
+    
+            // Lấy tất cả video trong modal
+            let videos = document.querySelectorAll("#modalBody video");
+    
+            // Đảm bảo chỉ có một video phát tại một thời điểm
+            videos.forEach(video => {
+                video.onplay = function() {
+                    if (currentVideo && currentVideo !== video) {
+                        currentVideo.pause();  // Dừng video hiện tại
+                    }
+                    currentVideo = video;  // Cập nhật video đang phát
+                };
+            });
+        }
+    
+        function closeModal() {
+            let modal = document.getElementById("myModal");
+            modal.style.display = "none";
+    
+            // Dừng tất cả video khi đóng modal
+            let videos = modal.getElementsByTagName("video");
+            for (let video of videos) {
+                video.pause();   // Dừng phát
+                video.currentTime = 0; // Tua về đầu
+            }
+    
+            currentVideo = null;  // Đặt lại video đang phát
+        }
+    </script>
+</body>
+</html>
